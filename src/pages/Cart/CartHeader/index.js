@@ -5,6 +5,7 @@ import { cartSelector, optionsSelector, userSelector } from '@/redux/selector';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import cartSlice from '../CartSlice';
+import { convertVnd } from '@/components/GlobalStyles/fuction';
 
 function CartHeader() {
     const dispatch = useDispatch();
@@ -40,7 +41,7 @@ function CartHeader() {
                     dispatch(notificationsSlice.actions.destroy());
                 }, 2000);
 
-                console.log(response);
+                console.log('update cart', response.data);
             })
             .catch((error) => {
                 dispatch(notificationsSlice.actions.showError('Thất bại'));
@@ -74,10 +75,10 @@ function CartHeader() {
                                     <div className="header__cart-item-price-wrap">
                                         {item.discountRate !== 0 ? (
                                             <span className="header__cart-item-price">
-                                                {item.price - (item.price * item.discountRate) / 100}đ
+                                                {convertVnd(item.price - (item.price * item.discountRate) / 100)}
                                             </span>
                                         ) : (
-                                            <span className="header__cart-item-price">{item.price}đ</span>
+                                            <span className="header__cart-item-price">{convertVnd(item.price)}</span>
                                         )}
 
                                         <span className="header__cart-item-multiply">x</span>
